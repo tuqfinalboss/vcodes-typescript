@@ -31,7 +31,8 @@ RESTful API for Video On Demand (VOD) data, with incremental sync, TMDB enrichme
 
 
 
-## Quick Start (Docker Recommended)
+
+## Quick Start (Manual/Local Setup)
 
 1. **Clone the repository:**
    ```sh
@@ -40,41 +41,13 @@ RESTful API for Video On Demand (VOD) data, with incremental sync, TMDB enrichme
    ```
 2. **Configure environment:**
    - Copy `.env.example` to `.env` and fill in your Xtream, TMDB, and Redis settings.
-3. **Start all services (API + Redis) with Docker Compose:**
-   ```sh
-   cd docker
-   docker compose build
-   docker compose up
-   ```
-4. **Run database migrations inside the container:**
-   ```sh
-   docker compose run --rm app npm run migrate
-   ```
-   - The API will be available at `http://localhost:3000`.
-   - Redis will be available at `localhost:6379` (inside Docker network).
-   - The SQLite DB file is persisted on your host as `vod-api.db`.
-   - Make sure your `.env` file is present in the project root before building.
-5. **Run tests in Docker Compose:**
-   ```sh
-   docker compose -f docker/docker-compose.test.yml up --build
-   ```
-   - This will spin up a test database and Redis, then run all Jest tests in the container.
-   - To clean up after tests:
-     ```sh
-     docker compose -f docker/docker-compose.test.yml down -v
-     ```
-
----
-
-### Manual/Local Setup (without Docker)
-
-1. **Install dependencies:**
+3. **Install dependencies:**
    ```sh
    npm install
    ```
-2. **Start Redis:**
+4. **Start Redis:**
    - Make sure a Redis server is running and accessible as configured in your `.env`.
-3. **Run database migrations:**
+5. **Run database migrations:**
    ```sh
    npm run migrate
    ```
@@ -82,12 +55,11 @@ RESTful API for Video On Demand (VOD) data, with incremental sync, TMDB enrichme
    > ```sh
    > mkdir db
    > ```
-4. **Start the API server:**
+6. **Start the API server:**
    ```sh
    npm run dev
    ```
-
-5. **Run tests locally (without Docker):**
+7. **Run tests locally:**
    ```sh
    npm test
    # or
@@ -97,6 +69,32 @@ RESTful API for Video On Demand (VOD) data, with incremental sync, TMDB enrichme
    - The test database will be created and cleaned up automatically.
 
 ---
+
+### Docker/Compose Setup (Optional)
+
+1. **Build and start all services (API + Redis) with Docker Compose:**
+   ```sh
+   cd docker
+   docker compose build
+   docker compose up
+   ```
+2. **Run database migrations inside the container:**
+   ```sh
+   docker compose run --rm app npm run migrate
+   ```
+   - The API will be available at `http://localhost:3000`.
+   - Redis will be available at `localhost:6379` (inside Docker network).
+   - The SQLite DB file is persisted on your host as `vod-api.db`.
+   - Make sure your `.env` file is present in the project root before building.
+3. **Run tests in Docker Compose:**
+   ```sh
+   docker compose -f docker/docker-compose.test.yml up --build
+   ```
+   - This will spin up a test database and Redis, then run all Jest tests in the container.
+   - To clean up after tests:
+     ```sh
+     docker compose -f docker/docker-compose.test.yml down -v
+     ```
 
 ## Build, Lint, Test, and Local CI
 
