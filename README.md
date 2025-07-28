@@ -131,10 +131,6 @@ curl -X POST http://localhost:3000/v1/admin/sync
 ```json
 {
   "status": "started",
-  "inserted": 100,
-  "updated": 5,
-  "skipped": 2,
-  "errors": []
 }
 ```
 
